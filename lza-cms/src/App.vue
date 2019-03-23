@@ -1,13 +1,20 @@
 <template>
+
+  <!-- 首页组件容器 -->
+
   <div class="app">
     <!-- 头部 -->
     <van-nav-bar
+      left-text="返回"
+      left-arrow
       class="my-nav-bar"
       title="Vue项目-lza"
+      :z-index=999
     />
 
-
-    <router-view></router-view>
+    <transition>
+      <router-view></router-view>
+    </transition>
 
     <!-- 底部 -->
     <van-tabbar v-model="active">
@@ -43,35 +50,41 @@ export default {
 };
 </script>
   
-<style lang="less" scoped>
-body,
-html {
-  color: #fff;
-}
+<style lang="less">
+
 .app {
+  overflow-x: hidden;
+  padding-bottom: 50px;
+  padding-top: 46px;
   .my-nav-bar {
     background-color: #26a2ff;
+    position: fixed;
+    top: 0;
     width: 100%;
+    .van-nav-bar__text,
+    .van-icon {
+      color: #fff;
+    }
   }
   .van-nav-bar__title {
     color: #fff;
   }
-  .my-swipe{
-    overflow: hidden;
-    .item{
-      &:nth-of-type(1){
-        background-color: skyblue;
-      }
-      &:nth-of-type(2){
-        background-color: pink;
-      }
-      &:nth-of-type(3){
-        background-color: orange;
-      }
-      &:nth-of-type(4){
-        background-color: cyan;
-      }
-    }
+
+  .v-enter {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  .v-leave-to {
+    opacity: 0;
+    transform: translateX(-100%);
+    position: absolute;
+    left: -200%;
+  }
+
+  .v-enter-active,
+  .v-leave-active {
+    transition: all 0.3s ease;
   }
 }
 </style>

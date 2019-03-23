@@ -10,19 +10,17 @@
         v-for="item in lunbotulist"
         :key="item.img"
       >
-        <img
-          :src="item.img"
-        >
+        <img :src="item.img">
       </van-swipe-item>
     </van-swipe>
 
     <!-- 9宫格组件 -->
-   <Gird></Gird>
+    <Gird></Gird>
   </div>
 </template>
 
 <script>
-import Gird from './owncomponent/Gird.vue'
+import Gird from "../owncomponent/Gird.vue";
 import { Toast } from "vant";
 export default {
   data: () => ({
@@ -32,20 +30,17 @@ export default {
     this.getlunbo();
   },
   methods: {
-    getlunbo() {
-      this.$http.get('http://127.0.0.1:5000/api/getlunbo').then(res=>{
-        console.log(res);
-        const {data:{message,status}} = res;
-        if(status === 0){
-          this.lunbotulist = message;
-        }else{
-          Toast('图片加载失败')
-        }
-      })
+    async getlunbo() {
+      const {data: { message, status }} = await this.$http.get("api/getlunbo");
+      if (status === 0) {
+        this.lunbotulist = message;
+      } else {
+        Toast("图片加载失败");
+      }
     }
   },
-  components:{
-    Gird,
+  components: {
+    Gird
   }
 };
 </script>
